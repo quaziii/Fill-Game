@@ -6,19 +6,22 @@
 #define FILLGAME_FILLGAME_H
 
 #include "Move.h"
+#include <vector>
 
 
 class Fillgame {
 private:
-    int board_size;
+    int board_row;
+    int board_column;
     int **board;
     int to_play;
-    Move *moves;
+    std::vector<Move> moves;
 public:
-    Fillgame(int board_size);
+    Fillgame(int b_r, int b_c);
     ~Fillgame();
 
     void print_board();
+    void addMoveToBoard(int r, int c, int n);
 };
 
 
