@@ -26,7 +26,7 @@ public:
     void push_adjacent_moves(Move move);
     bool is_legal_move(Move move);
     std::vector<Move> get_all_legal_moves();
-    bool violate_block_rule(Move move, int value, int limit, int **visited, int total_visited);
+    bool violate_block_rule(Move move, int value, int limit, int **visited);
 };
 
 

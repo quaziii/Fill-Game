@@ -77,9 +77,15 @@ void Fillgame::push_adjacent_moves(Move move) {
 }
 
 // this is basically a iterative deepening dfs algorithm to check if there are n number of adjacent nodes of value n within n limit
-bool Fillgame::violate_block_rule(Move move, int value, int limit, int **visited, int total_visited) {
+bool Fillgame::violate_block_rule(Move move, int value, int limit, int **visited) {
     visited[move.get_row()][move.get_column()] = 1;
-    total_visited++;
+    int total_visited = 0;
+
+    for (int i = 0; i < board_row; i++) {
+        for (int j = 0; j < board_column; j++) {
+            total_visited += visited[i][j];
+        }
+    }
 
     if (total_visited - 1 == value) {   // 1 has been subtracted here because of considering the root node's value
         return true;
@@ -93,7 +99,7 @@ bool Fillgame::violate_block_rule(Move move, int value, int limit, int **visited
 
     for (Move m : *adjacent_moves) {
         if (is_valid_board_cell(m.get_row(), m.get_column()) && m.get_value() == value && !visited[m.get_row()][m.get_column()]) {
-            if (violate_block_rule(m, value, limit - 1, visited, total_visited)) {
+            if (violate_block_rule(m, value, limit - 1, visited)) {
                 return true;
             }
         }
@@ -115,7 +121,7 @@ bool Fillgame::is_legal_move(Move move) {
         }
     }
 
-    bool is_legal_move = !violate_block_rule(move, move.get_value(), move.get_value(), visited, 0);
+    bool is_legal_move = !violate_block_rule(move, move.get_value(), move.get_value(), visited);
 
     return is_legal_move;
 }

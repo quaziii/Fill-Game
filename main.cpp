@@ -40,6 +40,11 @@ int main(int argc, char **argv) {
     string fill_game_position = argv[1];
     string time_limit = argv[2];
 
+    //this code block will be removed later
+    string my_move_row = argv[3];
+    string my_move_column = argv[4];
+    string my_move_value = argv[5];
+
     int board_row = count(fill_game_position.begin(), fill_game_position.end(), '*') + 1;
     int board_column = countColumns(fill_game_position);
 
@@ -49,7 +54,7 @@ int main(int argc, char **argv) {
 
     fill_game.print_board();    // prints the board with initialized value
 
-    Move m(2,3,4);  // change row, column and value to test
+    Move m((int)my_move_row[0] - '0', (int)my_move_column[0] - '0', (int)my_move_value[0] - '0');  // change row, column and value to test, will remove later
     if (fill_game.is_legal_move(m))     // outputs to test if the above move is legal
         cout << "LEGAL MOVE FOR " << m.get_value() << " AT (" << m.get_row() << "," << m.get_column() << ")" << endl;
     else
