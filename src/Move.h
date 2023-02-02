@@ -35,6 +35,7 @@ public:
     int get_column();
     int get_value();
 
+    bool is_equals(Move move);
     void add_adjacent_cell_move(Move move);
     list<Move>* get_adjacent_cell_moves();
 };

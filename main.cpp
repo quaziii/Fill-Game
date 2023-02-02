@@ -49,8 +49,10 @@ int main(int argc, char **argv) {
 
     fill_game.print_board();
 
-    Move m(2,3,4);
-    if (fill_game.is_legal_move_for_four(m))
-        cout << "===============" << endl;
+    Move m(2,3,4);  // change row, column and value to test
+    if (fill_game.is_legal_move(m))
+        cout << "LEGAL MOVE FOR " << m.get_value() << " AT (" << m.get_row() << "," << m.get_column() << ")" << endl;
+    else
+        cout << "ILLEGAL MOVE FOR " << m.get_value() << " AT (" << m.get_row() << "," << m.get_column() << ")" << endl;
     return 0;
 }

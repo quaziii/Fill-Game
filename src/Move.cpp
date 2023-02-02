@@ -29,6 +29,13 @@ int Move::get_value() {
     return this->value;
 }
 
+bool Move::is_equals(Move move) {
+    if (this->row == move.row && this->column == move.column && this->value == move.value)
+        return true;
+
+    return false;
+}
+
 void Move::add_adjacent_cell_move(Move move) {
     adjacent_cell_moves->push_back(move);
 }
