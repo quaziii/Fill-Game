@@ -48,5 +48,9 @@ int main(int argc, char **argv) {
     initiate_board_from_input(fill_game_position, &fill_game);
 
     fill_game.print_board();
+
+    Move m(2,3,4);
+    if (fill_game.is_legal_move_for_four(m))
+        cout << "===============" << endl;
     return 0;
 }

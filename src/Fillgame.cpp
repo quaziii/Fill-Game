@@ -10,6 +10,8 @@
 #include "Fillgame.h"
 #include "Move.h"
 
+using namespace std;
+
 
 Fillgame::Fillgame(int b_r, int b_c) {
     board_row = b_r;
@@ -47,4 +49,27 @@ void Fillgame::addMoveToBoard(int r, int c, int n) {
     board[r][c] = n;
     Move new_move(r, c, n);
     moves.push_back(new_move);
+}
+
+void Fillgame::push_adjacent_moves(Move move) {
+    int row_directions[4] = {0, 1, 0, -1};   //directions of row to move left, right, top, bottom
+    int column_directions[4] = {-1, 0, 1, 0};   //directions of column to move left, right, top, bottom
+
+    for (int i = 0; i < 4; i++) {
+        int adj_x = move.get_row() + row_directions[i];
+        int adj_y = move.get_column() + column_directions[i];
+
+        move.add_adjacent_cell_move(Move(adj_x, adj_y, board[adj_x][adj_y]));
+    }
+}
+
+bool Fillgame::is_legal_move_for_four(Move move) {
+    Move root_move = move;
+    push_adjacent_moves(move);
+
+    return true;
+}
+
+vector<Move> Fillgame::get_all_legal_moves() {
+
 }

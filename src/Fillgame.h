@@ -22,6 +22,9 @@ public:
 
     void print_board();
     void addMoveToBoard(int r, int c, int n);
+    bool is_legal_move_for_four(Move move);
+    std::vector<Move> get_all_legal_moves();
+    void push_adjacent_moves(Move move);
 };
 
 
