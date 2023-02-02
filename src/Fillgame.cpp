@@ -58,6 +58,7 @@ bool Fillgame::is_valid_board_cell(int row, int column) {
     return false;
 }
 
+// pushes left, right, top, bottom cell's moves in a given move's list
 void Fillgame::push_adjacent_moves(Move move) {
     int row_directions[4] = {0, 1, 0, -1};   //directions of row to move left, right, top, bottom
     int column_directions[4] = {-1, 0, 1, 0};   //directions of column to move left, right, top, bottom
@@ -75,6 +76,7 @@ void Fillgame::push_adjacent_moves(Move move) {
     }
 }
 
+// this is basically a iterative deepening dfs algorithm to check if there are n number of adjacent nodes of value n within n limit
 bool Fillgame::violate_block_rule(Move move, int value, int limit, int **visited, int total_visited) {
     visited[move.get_row()][move.get_column()] = 1;
     total_visited++;
@@ -100,9 +102,10 @@ bool Fillgame::violate_block_rule(Move move, int value, int limit, int **visited
     return false;
 }
 
+// returns true if the move is legal
 bool Fillgame::is_legal_move(Move move) {
     Move root_move = move;
-    int *visited[board_column];
+    int *visited[board_column];     // keeps track of the visited cells
     for (int i = 0; i < board_row; i++) {
         visited[i] = new int [board_column];
     }

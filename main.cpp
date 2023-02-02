@@ -43,14 +43,14 @@ int main(int argc, char **argv) {
     int board_row = count(fill_game_position.begin(), fill_game_position.end(), '*') + 1;
     int board_column = countColumns(fill_game_position);
 
-    Fillgame fill_game(board_row, board_column);
+    Fillgame fill_game(board_row, board_column);    //creates an empty board
 
-    initiate_board_from_input(fill_game_position, &fill_game);
+    initiate_board_from_input(fill_game_position, &fill_game);  // initalizes board from input
 
-    fill_game.print_board();
+    fill_game.print_board();    // prints the board with initialized value
 
     Move m(2,3,4);  // change row, column and value to test
-    if (fill_game.is_legal_move(m))
+    if (fill_game.is_legal_move(m))     // outputs to test if the above move is legal
         cout << "LEGAL MOVE FOR " << m.get_value() << " AT (" << m.get_row() << "," << m.get_column() << ")" << endl;
     else
         cout << "ILLEGAL MOVE FOR " << m.get_value() << " AT (" << m.get_row() << "," << m.get_column() << ")" << endl;
