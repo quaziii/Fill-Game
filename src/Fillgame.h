@@ -20,8 +20,12 @@ public:
     Fillgame(int b_r, int b_c);
     ~Fillgame();
 
+    int** get_board();
+    int get_board_row();
+    int get_board_column();
     void print_board();
-    void addMoveToBoard(int r, int c, int n);
+    void add_move_to_board(int r, int c, int n);
+    void undo_last_move();
     bool is_valid_board_cell(int row, int column);
     void push_adjacent_moves(Move move);
     bool is_legal_move(Move move);

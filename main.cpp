@@ -1,9 +1,13 @@
 #include <iostream>
 #include <sstream>
-#include <cstring>
 #include "src/Fillgame.h"
+#include "src/Node.h"
+#include "src/game_basics.h"
 
 using namespace std;
+
+int PROVEN = 100;
+int DISPROVEN = 0;
 
 
 int countColumns(string fill_game_position) {
@@ -27,12 +31,59 @@ void initiate_board_from_input(string fill_game_position, Fillgame *fill_game) {
         int n = row.length();
         for (int j = 0; j < n; j++) {
             if (row[j] == '.') {
-                fill_game->addMoveToBoard(i, j, 0);
+                fill_game->add_move_to_board(i, j, 0);
             } else {
-                fill_game->addMoveToBoard(i, j, (int)(row[j] - '0'));
+                fill_game->add_move_to_board(i, j, (int)(row[j] - '0'));
             }
         }
         i++;
+    }
+}
+
+void add_children_to_node(Node *N, Fillgame *fill_game) {
+    Fillgame new_fill_game(fill_game->get_board_row(), fill_game->get_board_column());
+
+    for (int i = 0; i < new_fill_game.get_board_row(); i++) {   // copy from parent
+        for (int j = 0; j < new_fill_game.get_board_column(); j++) {
+            new_fill_game.add_move_to_board(i, j, fill_game->get_board()[i][j]);
+        }
+    }
+    new_fill_game.add_move_to_board(1, 2, 3);   // add a new move to child
+    Node child(N, &new_fill_game);
+    N->add_child(&child);
+
+    Fillgame new_fill_game2(fill_game->get_board_row(), fill_game->get_board_column());
+
+    for (int i = 0; i < new_fill_game2.get_board_row(); i++) {   // copy from parent
+        for (int j = 0; j < new_fill_game2.get_board_column(); j++) {
+            new_fill_game2.add_move_to_board(i, j, fill_game->get_board()[i][j]);
+        }
+    }
+    new_fill_game2.add_move_to_board(2, 2, 3);   // add a new move to child
+    Node child2(N, &new_fill_game2);
+    N->add_child(&child2);
+
+    vector<Node*> v = N->get_children();
+    for (Node *cur : v) {
+        cur->print_board_status();
+        cout << endl;
+    }
+}
+
+void MID (Node N) {
+
+}
+
+int Df_pn (Node R) {
+    R.set_phi(INFINITY);
+    R.set_delta(INFINITY);
+
+    MID(R);
+
+    if (R.get_delta() == INFINITY) {
+        return PROVEN;
+    } else {
+        return DISPROVEN;
     }
 }
 
@@ -59,5 +110,9 @@ int main(int argc, char **argv) {
         cout << "LEGAL MOVE FOR " << m.get_value() << " AT (" << m.get_row() << "," << m.get_column() << ")" << endl;
     else
         cout << "ILLEGAL MOVE FOR " << m.get_value() << " AT (" << m.get_row() << "," << m.get_column() << ")" << endl;
+
+    Node root(nullptr, &fill_game);
+    root.add_children_to_node(&fill_game);
+
     return 0;
 }

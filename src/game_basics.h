@@ -6,10 +6,13 @@
 #define FILLGAME_GAME_BASICS_H
 
 
-extern int BLACK = 1;
-extern int WHITE = 2;
+extern int BLACK;
+extern int WHITE;
 
-extern int INFINITY = 100000;
+extern int INFINITY;
+
+extern int PROVEN;
+extern int DISPROVEN;
 
 
 #endif //FILLGAME_GAME_BASICS_H

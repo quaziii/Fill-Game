@@ -7,10 +7,13 @@
 #include <iostream>
 
 #include "game_basics.h"
-#include "Fillgame.h"
 #include "Move.h"
 
 using namespace std;
+
+int BLACK = 1;
+int WHITE = 0;
+int INFINITY = 100000;
 
 
 Fillgame::Fillgame(int b_r, int b_c) {
@@ -36,6 +39,18 @@ Fillgame::~Fillgame() {
     delete board;
 }
 
+int** Fillgame::get_board() {
+    return board;
+}
+
+int Fillgame::get_board_row() {
+    return board_row;
+}
+
+int Fillgame::get_board_column() {
+    return board_column;
+}
+
 void Fillgame::print_board() {
     for (int i = 0; i < board_row; i++) {
         for (int j = 0; j < board_column; j++) {
@@ -45,10 +60,16 @@ void Fillgame::print_board() {
     }
 }
 
-void Fillgame::addMoveToBoard(int r, int c, int n) {
+void Fillgame::add_move_to_board(int r, int c, int n) {
     board[r][c] = n;
     Move new_move(r, c, n);
     moves.push_back(new_move);
+}
+
+void Fillgame::undo_last_move() {
+    Move m = moves[moves.size() - 1];
+    board[m.get_row()][m.get_column()] = 0;
+    this->moves.pop_back();
 }
 
 bool Fillgame::is_valid_board_cell(int row, int column) {
